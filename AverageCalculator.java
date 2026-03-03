@@ -19,8 +19,12 @@ public class AverageCalculator {
         // BUG 2: Potential Division by Zero if inputs is empty
         for (int i = 0; i < inputs.length; i++) { // BUG 3: Off-by-one error
             // BUG 4: No error handling for non-numeric strings
-            int val = Integer.parseInt(inputs[i]);
-            sum += val;
+            try {
+                int val = Integer.parseInt(inputs[i]);
+                sum += val;
+            } catch (NumberFormatException e) {
+                System.err.println("Skipping Invalid Input: " + inputs[i]);
+            }
         }
         return sum / inputs.length;
     }
