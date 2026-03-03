@@ -12,13 +12,14 @@ public class AverageCalculator {
      */
     public static double calculateAverage(String[] inputs) {
         double sum = 0;
-        // BUG 1: Potential NullPointerException if inputs is null
         if (inputs == null) {
             throw new IllegalArgumentException("Input array cannot be null.");
         }
-        // BUG 2: Potential Division by Zero if inputs is empty
-        for (int i = 0; i < inputs.length; i++) { // BUG 3: Off-by-one error
-            // BUG 4: No error handling for non-numeric strings
+        
+        if (inputs == null || inputs.length == 0) {
+            return 0;
+        }
+        for (int i = 0; i < inputs.length; i++) { 
             try {
                 int val = Integer.parseInt(inputs[i]);
                 sum += val;
