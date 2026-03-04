@@ -1,3 +1,5 @@
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * AverageCalculator class takes an input of string, takes each of the double (number)
@@ -16,6 +18,9 @@
  */
 
 public class AverageCalculator {
+
+    private static final Logger logger = 
+        Logger.getLogger(AverageCalculator.class.getName());
 
     /**
      * Tests method and implements calculateAverage to make sure that the method works.
@@ -41,7 +46,9 @@ public class AverageCalculator {
      */
     public static double calculateAverage(String[] inputs) {
         double sum = 0;
+        assert inputs.length > 0 : "Array mustn't be empty!";
         if (inputs == null) {
+            logger.log(Level.SEVERE, "Input array was null.");
             throw new IllegalArgumentException("Input array cannot be null.");
         }
 
@@ -52,8 +59,9 @@ public class AverageCalculator {
             try {
                 int val = Integer.parseInt(inputs[i]);
                 sum += val;
+                logger.log(Level.INFO, "Parsed Number: " + val);
             } catch (NumberFormatException e) {
-                System.err.println("Skipping Invalid Input: " + inputs[i]);
+                logger.log(Level.WARNING, "Failed to Parse: " + inputs[i], e);
             }
         }
         return sum / inputs.length;
